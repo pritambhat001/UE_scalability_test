@@ -1,0 +1,684 @@
+{
+	"info": {
+		"_postman_id": "6f1b83cd-b932-4d02-b27f-1a3a38f3752f",
+		"name": "Add Subscriber / Delete Subscriber",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5822501"
+	},
+	"item": [
+		{
+			"name": "ADD Subscribers",
+			"item": [
+				{
+					"name": "Add SIM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == \"201\") {\r",
+									"    pm.test(\"Status code is 201\", function () {\r",
+									"        pm.response.to.have.status(201);\r",
+									"    });\r",
+									"    pm.test(\"Sim-Card Created Successfully with: \" + pm.response.text() , function () {\r",
+									"        pm.expect(pm.response.text()).to.include(\"uuid\");\r",
+									"    });\r",
+									"}\r",
+									"else {\r",
+									"    tests[\"TEST FAILED - Expected responseCode is 201 ... responseCode received = \" + pm.response.code] = pm.response.code === 201;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sim-id\": \"{{sim-id}}\",\r\n  \"description\": \"kajeet baicell sim\",\r\n  \"display-name\": \"kajeet baicell test SIM\",\r\n  \"key\": \"{{key}}\",\r\n  \"opc\": \"{{opc}}\",\r\n  \"iccid\": \"{{iccid}}\",\r\n  \"imsi\": {{imsi}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"aether",
+								"v2.0.x",
+								":target",
+								"enterprises",
+								"enterprise",
+								":enterprise-id",
+								"site",
+								":site-id",
+								"sim-card",
+								":sim-id"
+							],
+							"variable": [
+								{
+									"key": "target",
+									"value": "{{target}}"
+								},
+								{
+									"key": "enterprise-id",
+									"value": "{{enterprise-id}}"
+								},
+								{
+									"key": "site-id",
+									"value": "{{site-id}}"
+								},
+								{
+									"key": "sim-id",
+									"value": "{{sim-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Device - Mapped SIM to Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == \"201\") {\r",
+									"    pm.test(\"Status code is 201\", function () {\r",
+									"        pm.response.to.have.status(201);\r",
+									"    });\r",
+									"    pm.test(\"Device Created Successfully with: \" + pm.response.text() , function () {\r",
+									"        pm.expect(pm.response.text()).to.include(\"uuid\");\r",
+									"    });\r",
+									"}\r",
+									"else {\r",
+									"    tests[\"TEST FAILED - Expected responseCode is 201 ... responseCode received = \" + pm.response.code] = pm.response.code === 201;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"device-id\": \"{{device-id}}\",\r\n  \"ip-addresses\": \"0.0.0.0\",\r\n  \"description\": \"kajeet baicell device\",\r\n  \"display-name\": \"kajeet baicell test device\",\r\n  \"imei\": \"{{imei}}\",\r\n  \"sim-card\": \"{{sim-id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"aether",
+								"v2.0.x",
+								":target",
+								"enterprises",
+								"enterprise",
+								":enterprise-id",
+								"site",
+								":site-id",
+								"device",
+								":device-id"
+							],
+							"variable": [
+								{
+									"key": "target",
+									"value": "{{target}}"
+								},
+								{
+									"key": "enterprise-id",
+									"value": "{{enterprise-id}}"
+								},
+								{
+									"key": "site-id",
+									"value": "{{site-id}}"
+								},
+								{
+									"key": "device-id",
+									"value": "{{device-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD Device-group- Mapped SIM to Device-Group Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == \"201\") {\r",
+									"    pm.test(\"Status code is 201\", function () {\r",
+									"        pm.response.to.have.status(201);\r",
+									"    });\r",
+									"    pm.test(\"Device mapped to Device-Group Created Successfully with: \" + pm.response.text() , function () {\r",
+									"        pm.expect(pm.response.text()).to.include(\"uuid\");\r",
+									"    });\r",
+									"}\r",
+									"else {\r",
+									"    tests[\"TEST FAILED - Expected responseCode is 201 ... responseCode received = \" + pm.response.code] = pm.response.code === 201;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"device-id\": \"{{device-id}}\",\r\n  \"enable\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-aid/site/:site-id/device-group/:device-group-id/device/:device-id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"aether",
+								"v2.0.x",
+								":target",
+								"enterprises",
+								"enterprise",
+								":enterprise-aid",
+								"site",
+								":site-id",
+								"device-group",
+								":device-group-id",
+								"device",
+								":device-id"
+							],
+							"variable": [
+								{
+									"key": "target",
+									"value": "{{target}}"
+								},
+								{
+									"key": "enterprise-aid",
+									"value": "{{enterprise-id}}"
+								},
+								{
+									"key": "site-id",
+									"value": "{{site-id}}"
+								},
+								{
+									"key": "device-group-id",
+									"value": "{{device-group-id}}"
+								},
+								{
+									"key": "device-id",
+									"value": "{{device-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"console.log(pm.collectionVariables.get(\"enterprise-id\"));",
+							"console.log(pm.collectionVariables.get(\"site-id\"));",
+							"console.log(pm.collectionVariables.get(\"imsi\"));",
+							"console.log(pm.collectionVariables.get(\"sim-id\"));",
+							"console.log(pm.collectionVariables.get(\"device-id\"));",
+							"console.log(pm.collectionVariables.get(\"device-group-id\"));",
+							"console.log(pm.collectionVariables.get(\"opc\"));",
+							"console.log(pm.collectionVariables.get(\"key\"));",
+							"console.log(pm.collectionVariables.get(\"iccid\"));",
+							"console.log(pm.collectionVariables.get(\"imei\"));",
+							"pm.collectionVariables.set(\"enterprise-id\",pm.iterationData.get(\"enterprise-id\"));",
+							"pm.collectionVariables.set(\"site-id\",pm.iterationData.get(\"site-id\"));",
+							"pm.collectionVariables.set(\"imsi\",pm.iterationData.get(\"imsi\"));",
+							"pm.collectionVariables.set(\"sim-id\",pm.iterationData.get(\"sim-id\"));",
+							"pm.collectionVariables.set(\"device-id\",pm.iterationData.get(\"device-id\"));",
+							"pm.collectionVariables.set(\"device-group-id\",pm.iterationData.get(\"device-group-id\"));",
+							"pm.collectionVariables.set(\"opc\",pm.iterationData.get(\"opc\"));",
+							"pm.collectionVariables.set(\"key\",pm.iterationData.get(\"key\"));",
+							"pm.collectionVariables.set(\"iccid\",pm.iterationData.get(\"iccid\"));",
+							"pm.collectionVariables.set(\"imei\",pm.iterationData.get(\"imei\"));",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Delete Subscriber",
+			"item": [
+				{
+					"name": "Delete Device from Device-group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == \"200\") {\r",
+									"    pm.test(\"Status code is 200\", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"    });\r",
+									"    pm.test(\"Device is removed from Device-Group Successfully with: \" + pm.response.text() , function () {\r",
+									"        pm.expect(pm.response.text()).to.include(\"uuid\");\r",
+									"    });\r",
+									"}\r",
+									"else {\r",
+									"    tests[\"TEST FAILED - Expected responseCode is 200 ... responseCode received = \" + pm.response.code] = pm.response.code === 200;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"aether",
+								"v2.0.x",
+								":target",
+								"enterprises",
+								"enterprise",
+								":enterprise-id",
+								"site",
+								":site-id",
+								"device-group",
+								":device-group-id",
+								"device",
+								":device-id"
+							],
+							"variable": [
+								{
+									"key": "target",
+									"value": "{{target}}"
+								},
+								{
+									"key": "enterprise-id",
+									"value": "{{enterprise-id}}"
+								},
+								{
+									"key": "site-id",
+									"value": "{{site-id}}"
+								},
+								{
+									"key": "device-group-id",
+									"value": "{{device-group-id}}"
+								},
+								{
+									"key": "device-id",
+									"value": "{{device-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == \"200\") {\r",
+									"    pm.test(\"Status code is 200\", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"    });\r",
+									"    pm.test(\"Device Deleted Successfully with: \" + pm.response.text() , function () {\r",
+									"        pm.expect(pm.response.text()).to.include(\"uuid\");\r",
+									"    });\r",
+									"\r",
+									"}\r",
+									"else {\r",
+									"    tests[\"TEST FAILED - Expected responseCode is 200 ... responseCode received = \" + pm.response.code] = pm.response.code === 200;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"aether",
+								"v2.0.x",
+								":target",
+								"enterprises",
+								"enterprise",
+								":enterprise-id",
+								"site",
+								":site-id",
+								"device",
+								":device-id"
+							],
+							"variable": [
+								{
+									"key": "target",
+									"value": "{{target}}"
+								},
+								{
+									"key": "enterprise-id",
+									"value": "{{enterprise-id}}"
+								},
+								{
+									"key": "site-id",
+									"value": "{{site-id}}"
+								},
+								{
+									"key": "device-id",
+									"value": "{{device-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete SIM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == \"200\") {\r",
+									"    pm.test(\"Status code is 200\", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"    });\r",
+									"     pm.test(\"SIM-Card Deleted Successfully with: \" + pm.response.text() , function () {\r",
+									"        pm.expect(pm.response.text()).to.include(\"uuid\");\r",
+									"    });\r",
+									"}\r",
+									"else {\r",
+									"    tests[\"TEST FAILED - Expected responseCode is 200 ... responseCode received = \" + pm.response.code] = pm.response.code === 200;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"aether",
+								"v2.0.x",
+								":target",
+								"enterprises",
+								"enterprise",
+								":enterprise-id",
+								"site",
+								":site-id",
+								"sim-card",
+								":sim-id"
+							],
+							"variable": [
+								{
+									"key": "target",
+									"value": "{{target}}"
+								},
+								{
+									"key": "enterprise-id",
+									"value": "{{enterprise-id}}"
+								},
+								{
+									"key": "site-id",
+									"value": "{{site-id}}"
+								},
+								{
+									"key": "sim-id",
+									"value": "{{sim-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"console.log(pm.collectionVariables.get(\"enterprise-id\"));",
+							"console.log(pm.collectionVariables.get(\"site-id\"));",
+							"console.log(pm.collectionVariables.get(\"imsi\"));",
+							"console.log(pm.collectionVariables.get(\"sim-id\"));",
+							"console.log(pm.collectionVariables.get(\"device-id\"));",
+							"console.log(pm.collectionVariables.get(\"device-group-id\"));",
+							"console.log(pm.collectionVariables.get(\"opc\"));",
+							"console.log(pm.collectionVariables.get(\"key\"));",
+							"console.log(pm.collectionVariables.get(\"iccid\"));",
+							"console.log(pm.collectionVariables.get(\"imei\"));",
+							"pm.collectionVariables.set(\"enterprise-id\",pm.iterationData.get(\"enterprise-id\"));",
+							"pm.collectionVariables.set(\"site-id\",pm.iterationData.get(\"site-id\"));",
+							"pm.collectionVariables.set(\"imsi\",pm.iterationData.get(\"imsi\"));",
+							"pm.collectionVariables.set(\"sim-id\",pm.iterationData.get(\"sim-id\"));",
+							"pm.collectionVariables.set(\"device-id\",pm.iterationData.get(\"device-id\"));",
+							"pm.collectionVariables.set(\"device-group-id\",pm.iterationData.get(\"device-group-id\"));",
+							"pm.collectionVariables.set(\"opc\",pm.iterationData.get(\"opc\"));",
+							"pm.collectionVariables.set(\"key\",pm.iterationData.get(\"key\"));",
+							"pm.collectionVariables.set(\"iccid\",pm.iterationData.get(\"iccid\"));",
+							"pm.collectionVariables.set(\"imei\",pm.iterationData.get(\"imei\"));",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(pm.collectionVariables.get(\"enterprise-id\"));",
+					"console.log(pm.collectionVariables.get(\"site-id\"));",
+					"console.log(pm.collectionVariables.get(\"imsi\"));",
+					"console.log(pm.collectionVariables.get(\"sim-id\"));",
+					"console.log(pm.collectionVariables.get(\"device-id\"));",
+					"console.log(pm.collectionVariables.get(\"device-group-id\"));",
+					"console.log(pm.collectionVariables.get(\"opc\"));",
+					"console.log(pm.collectionVariables.get(\"key\"));",
+					"console.log(pm.collectionVariables.get(\"iccid\"));",
+					"console.log(pm.collectionVariables.get(\"imei\"));",
+					"pm.collectionVariables.set(\"enterprise-id\",pm.iterationData.get(\"enterprise-id\"));",
+					"pm.collectionVariables.set(\"site-id\",pm.iterationData.get(\"site-id\"));",
+					"pm.collectionVariables.set(\"imsi\",pm.iterationData.get(\"imsi\"));",
+					"pm.collectionVariables.set(\"sim-id\",pm.iterationData.get(\"sim-id\"));",
+					"pm.collectionVariables.set(\"device-id\",pm.iterationData.get(\"device-id\"));",
+					"pm.collectionVariables.set(\"device-group-id\",pm.iterationData.get(\"device-group-id\"));",
+					"pm.collectionVariables.set(\"opc\",pm.iterationData.get(\"opc\"));",
+					"pm.collectionVariables.set(\"key\",pm.iterationData.get(\"key\"));",
+					"pm.collectionVariables.set(\"iccid\",pm.iterationData.get(\"iccid\"));",
+					"pm.collectionVariables.set(\"imei\",pm.iterationData.get(\"imei\"));",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "enterprise-id",
+			"value": ""
+		},
+		{
+			"key": "imsi",
+			"value": ""
+		},
+		{
+			"key": "sim-id",
+			"value": ""
+		},
+		{
+			"key": "device-id",
+			"value": ""
+		},
+		{
+			"key": "device-group-id",
+			"value": ""
+		},
+		{
+			"key": "opc",
+			"value": ""
+		},
+		{
+			"key": "key",
+			"value": ""
+		},
+		{
+			"key": "iccid",
+			"value": ""
+		},
+		{
+			"key": "imei",
+			"value": ""
+		}
+	]
+}
